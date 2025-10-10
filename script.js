@@ -14,6 +14,21 @@
   const calendarEl = document.getElementById('calendar');
   const countdownEl = document.getElementById('countdown');
 
+  // 🌸 create sparkles for reveal animation
+  function createSparkles(target){
+    const sparkleContainer = document.createElement('div');
+    sparkleContainer.className = 'sparkle-container';
+    for (let i = 0; i < 12; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      sparkleContainer.appendChild(s);
+    }
+    target.appendChild(sparkleContainer);
+    setTimeout(() => sparkleContainer.remove(), 1500);
+  }
+
   // 🎃 Build main calendar
   function buildCalendar(){
     if(!calendarEl) return;
@@ -42,13 +57,11 @@
       if(pstDay === d){
         card.classList.add('today');
         const tag = document.createElement('div');
-        tag.style.fontSize='12px';
-        tag.style.marginTop='6px';
-        tag.textContent='Today';
+        tag.className = 'today-tag';
+        tag.textContent = 'Today 🎃';
         card.appendChild(tag);
       }
 
-      // 🩷 Allow clicking anytime (character page handles lock)
       card.addEventListener('click', ()=>{
         window.location.href = `character.html?day=${d}`;
       });
@@ -63,14 +76,21 @@
     const now = getPSTNow();
     const month = now.getMonth() + 1;
     const pstDay = now.getDate();
-
-    // Before Oct 14 → always locked
     if (month < 10 || (month === 10 && pstDay < START_DAY)) return false;
-
-    // After event start
     if(month === 10 && pstDay >= day) return true;
     if(month > 10) return true;
     return false;
+  }
+
+  // 🌷 Reveal animation on unlock
+  function revealCard(card, newSrc){
+    const img = card.querySelector('img');
+    img.classList.add('reveal-fade');
+    createSparkles(card);
+    setTimeout(()=>{
+      img.src = newSrc;
+      img.classList.remove('reveal-fade');
+    }, 400);
   }
 
   // 🌸 Refresh cards daily
@@ -82,10 +102,12 @@
       const data = window.FAENOIR_BY_DAY[d] || {};
       const sil = data.silhouette || `silhouettes/day${d}.png`;
       const real = data.image || `images/day${d}.png`;
-      if(isUnlocked(d)){
+      const unlocked = isUnlocked(d);
+
+      if(unlocked && img.src.includes('silhouettes/')){
         card.classList.remove('locked');
-        img.src = real;
-      } else {
+        revealCard(card, real);
+      } else if(!unlocked && !img.src.includes('silhouettes/')){
         card.classList.add('locked');
         img.src = sil;
       }
@@ -95,17 +117,14 @@
   // ⏳ Countdown — includes pre-event waiting
   function updateCountdown(){
     if(!countdownEl) return;
-
     const now = getPSTNow();
     const year = now.getFullYear();
     const month = now.getMonth() + 1;
     const day = now.getDate();
-
     const eventStart = new Date(`${year}-10-${String(START_DAY).padStart(2,'0')}T00:00:00-07:00`);
     const nowTS = now.getTime();
 
     if (month < 10 || (month === 10 && day < START_DAY)) {
-      // Before Oct 14
       const diff = eventStart - nowTS;
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
@@ -115,7 +134,6 @@
       return;
     }
 
-    // After event starts → countdown to next midnight PST
     const nextPSTMidnight = new Date(now);
     nextPSTMidnight.setDate(day + 1);
     nextPSTMidnight.setHours(0, 0, 0, 0);
@@ -174,7 +192,6 @@
     const entryResult = document.getElementById('entry-result');
     const winnerBox = document.getElementById('winner-display');
 
-    // 🔒 Show locked notice if before unlock
     if(!unlocked){
       enterBtn.classList.add('hidden');
       const notice = document.createElement('p');
@@ -197,15 +214,16 @@
       }
     }
 
-    // 🎟 Raffle modal logic
     enterBtn.addEventListener('click', ()=>{
       modal.classList.remove('hidden');
+      modal.classList.add('fade-in');
       entryResult.textContent = '';
       usernameInput.value = '';
       usernameInput.focus();
     });
     closeBtn.addEventListener('click', ()=>{
       modal.classList.add('hidden');
+      modal.classList.remove('fade-in');
     });
 
     submitBtn.addEventListener('click', async ()=>{
@@ -241,7 +259,6 @@
     await checkWinner();
   }
 
-  // ✨ Page init
   document.addEventListener('DOMContentLoaded', ()=>{
     if(document.getElementById('calendar')) initIndex();
     if(document.querySelector('.character-page')) initCharacterPage();
