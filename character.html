@@ -1,1 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Raffle</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="data/characters.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <h1 id="char-title">Raffle</h1>
+  </header>
+
+  <main class="container character-page">
+    <div class="character-left">
+      <img id="char-image" src="" alt="character" />
+    </div>
+
+    <aside class="character-right">
+      <div class="ml-row">
+        <div class="ml-number" id="ml-number">ML #</div>
+        <a id="ml-link" class="button small" href="#" target="_blank">View ML</a>
+      </div>
+
+      <div class="toyhouse-row">
+        <a id="toyhouse-link" class="button small" href="#" target="_blank">Toyhouse</a>
+      </div>
+
+      <div class="enter-raffle">
+        <button id="enter-button" class="button big">Enter Raffle</button>
+      </div>
+
+      <div class="info-card" id="info-card">
+        <p><strong>Designer:</strong> <span id="designer"></span></p>
+        <p><strong>Species:</strong> <span id="species"></span></p>
+        <p><strong>Traits:</strong></p>
+        <ul id="traits"></ul>
+      </div>
+    </aside>
+  </main>
+
+  <!-- raffle modal -->
+  <div id="raffle-modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close">&times;</button>
+      <h2>Enter Raffle</h2>
+      <p>Enter your Toyhouse username to join this day's raffle.</p>
+      <input id="username-input" placeholder="Toyhouse username" />
+      <div class="modal-actions">
+        <button id="submit-entry" class="button big">Submit</button>
+      </div>
+      <div id="entry-result" class="entry-result"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="https://toyhou.se/~world/225325.faenoir" target="_blank" rel="noopener">Toyhouse World</a>
+      <a href="https://discord.gg/Nx258QXPzr" target="_blank" rel="noopener">Discord</a>
+      <a href="https://gummygyaru.github.io/Faenoir/" target="_blank" rel="noopener">Masterlist</a>
+      <a href="https://gummygyaru.github.io/Faenoir/species.html" target="_blank" rel="noopener">Info</a>
+    </div>
+  </footer>
+</body>
+</html>
 
