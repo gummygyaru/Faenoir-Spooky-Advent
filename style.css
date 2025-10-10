@@ -87,3 +87,49 @@ a{color:inherit}
 }
 .card:hover::before{right:-6px;top:-6px;transform:scale(1.05) rotate(5deg)}
 
+.sparkle-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #fff6 0%, transparent 70%);
+  border-radius: 50%;
+  animation: sparkleAnim 1s ease-out forwards;
+}
+
+@keyframes sparkleAnim {
+  0% { opacity: 0; transform: scale(0.2) translateY(0); }
+  30% { opacity: 1; transform: scale(1) translateY(-10px); }
+  100% { opacity: 0; transform: scale(0) translateY(-20px); }
+}
+
+.reveal-fade {
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.card:hover {
+  transform: scale(1.03) rotate(1deg);
+  transition: transform 0.2s ease;
+}
+
+.modal.fade-in {
+  animation: modalPop 0.4s ease forwards;
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+
