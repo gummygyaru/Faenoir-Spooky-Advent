@@ -226,11 +226,18 @@
       modal.classList.remove('fade-in');
     });
 
+    
+
     submitBtn.addEventListener('click', async ()=>{
       const username = usernameInput.value.trim();
       if(!username){
         entryResult.textContent = 'Please enter your Toyhouse username.';
         entryResult.style.color = 'crimson';
+        return;
+      }
+      if(!isUnlocked(day)){
+        entryResult.textContent = `🎃 This raffle isn’t open yet! Please come back on October ${day}th.`;
+        entryResult.style.color = 'orange';
         return;
       }
       submitBtn.disabled = true;
