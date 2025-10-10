@@ -5,27 +5,27 @@
 window.FAENOIR_CHARACTERS = [
   {
     day: 14,
-    title: "Spooky Calf #14",
+    title: "One doll of a time",
     mlNumber: "ML-014",
-    toyhouse: "https://toyhou.se/XXXXX",
-    designer: "DesignerName",
-    species: "Faenoir Bloomyte",
-    traits: ["pink horns", "glowing spots", "patchwork"],
+    toyhouse: "https://toyhou.se/35603670.1",
+    designer: "Shimura",
+    species: "Delerian",
+    traits: ["Ears: Mammal [Common]", "Halo: Shaped [Uncommon]", "Horns: Small [Common]"], ["Essence: Man Made (Dice) [Rare]", ["Tail: Axolotl (Other) [Rare]",
     image: "images/day14.png",
     silhouette: "silhouettes/day14.png",
-    raffleWebhook: "" // <-- set your Google Apps Script webhook URL here
+    raffleWebhook: "https://script.google.com/macros/s/AKfycbzK00IQ8SHrOv6JOeqC7MKHXAK2mNgvzRAUnpKpFKvEmJ5Bkv2hqMXj3jtDEPiycbsc/exec" // <-- set your Google Apps Script webhook URL here
   },
   {
     day: 15,
     title: "Spooky Calf #15",
     mlNumber: "ML-015",
     toyhouse: "https://toyhou.se/YYYYY",
-    designer: "DesignerName",
-    species: "Faenoir Bloomyte",
-    traits: ["lantern tail", "pastel stripes"],
+    designer: "Captin_Bean",
+    species: "Delerian",
+    traits: ["Horns: Any horn[common]", "Halo: Circular[common]"], "Tail: Cow [common]"], "Essence: Ghost [rare]"], "Ears: Lamb [common]"],
     image: "images/day15.png",
     silhouette: "silhouettes/day15.png",
-    raffleWebhook: ""
+    raffleWebhook: "https://script.google.com/macros/s/AKfycbzK00IQ8SHrOv6JOeqC7MKHXAK2mNgvzRAUnpKpFKvEmJ5Bkv2hqMXj3jtDEPiycbsc/exec"
   },
   // ... add objects for day:16 through day:31
 ];
