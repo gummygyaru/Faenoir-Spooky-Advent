@@ -14,9 +14,11 @@
   const calendarEl = document.getElementById('calendar');
   const countdownEl = document.getElementById('countdown');
 
+  // 🎃 Build main calendar
   function buildCalendar(){
     if(!calendarEl) return;
     calendarEl.innerHTML = '';
+
     for(let d = START_DAY; d <= END_DAY; d++){
       const card = document.createElement('div');
       card.className = 'card';
@@ -46,12 +48,9 @@
         card.appendChild(tag);
       }
 
+      // 🩷 Allow clicking anytime (character page handles lock)
       card.addEventListener('click', ()=>{
-        if(isUnlocked(d)){
-          window.location.href = `character.html?day=${d}`;
-        } else {
-          card.animate([{transform:'translateY(0)'},{transform:'translateY(-6px)'},{transform:'translateY(0)'}],{duration:300});
-        }
+        window.location.href = `character.html?day=${d}`;
       });
 
       calendarEl.appendChild(card);
@@ -59,15 +58,22 @@
     refreshCards();
   }
 
+  // 🕓 Unlock logic
   function isUnlocked(day){
     const now = getPSTNow();
     const month = now.getMonth() + 1;
     const pstDay = now.getDate();
+
+    // Before Oct 14 → always locked
+    if (month < 10 || (month === 10 && pstDay < START_DAY)) return false;
+
+    // After event start
     if(month === 10 && pstDay >= day) return true;
     if(month > 10) return true;
     return false;
   }
 
+  // 🌸 Refresh cards daily
   function refreshCards(){
     const cards = document.querySelectorAll('.card');
     cards.forEach(card=>{
@@ -86,27 +92,51 @@
     });
   }
 
+  // ⏳ Countdown — includes pre-event waiting
   function updateCountdown(){
+    if(!countdownEl) return;
+
     const now = getPSTNow();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+
+    const eventStart = new Date(`${year}-10-${String(START_DAY).padStart(2,'0')}T00:00:00-07:00`);
+    const nowTS = now.getTime();
+
+    if (month < 10 || (month === 10 && day < START_DAY)) {
+      // Before Oct 14
+      const diff = eventStart - nowTS;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
+      countdownEl.textContent = `🎀 Event starts in ${days}d ${hrs}h ${mins}m ${secs}s`;
+      return;
+    }
+
+    // After event starts → countdown to next midnight PST
     const nextPSTMidnight = new Date(now);
-    nextPSTMidnight.setDate(now.getDate() + 1);
-    nextPSTMidnight.setHours(0,0,0,0);
-    const diff = Math.max(0, nextPSTMidnight - now);
-    const hrs = Math.floor(diff / (1000*60*60));
-    const mins = Math.floor((diff / (1000*60)) % 60);
+    nextPSTMidnight.setDate(day + 1);
+    nextPSTMidnight.setHours(0, 0, 0, 0);
+    const diff = nextPSTMidnight - nowTS;
+    const hrs = Math.floor(diff / (1000 * 60 * 60));
+    const mins = Math.floor((diff / (1000 * 60)) % 60);
     const secs = Math.floor((diff / 1000) % 60);
-    if(countdownEl) countdownEl.textContent = `${String(hrs).padStart(2,'0')}:${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+    countdownEl.textContent = `⏰ Next unlock in ${String(hrs).padStart(2,'0')}:${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
   }
 
+  // 🪞 Init index page
   function initIndex(){
     buildCalendar();
     setInterval(()=>{
       updateCountdown();
       refreshCards();
-    },1000);
+    }, 1000);
     updateCountdown();
   }
 
+  // 🦋 Character page logic
   async function initCharacterPage(){
     const params = new URLSearchParams(window.location.search);
     const day = parseInt(params.get('day'),10);
@@ -116,9 +146,11 @@
     }
 
     const data = window.FAENOIR_BY_DAY[day];
-    document.getElementById('char-title').textContent = `${data.title} — Day ${day}`;
+    const unlocked = isUnlocked(day);
+
+    document.getElementById('char-title').textContent = `${data.title || 'Raffle'} — Day ${day}`;
     const imgEl = document.getElementById('char-image');
-    imgEl.src = isUnlocked(day) ? data.image : data.silhouette;
+    imgEl.src = unlocked ? data.image : data.silhouette;
 
     document.getElementById('ml-number').textContent = data.mlNumber || 'ML';
     document.getElementById('ml-link').href = data.toyhouse || '#';
@@ -142,6 +174,15 @@
     const entryResult = document.getElementById('entry-result');
     const winnerBox = document.getElementById('winner-display');
 
+    // 🔒 Show locked notice if before unlock
+    if(!unlocked){
+      enterBtn.classList.add('hidden');
+      const notice = document.createElement('p');
+      notice.className = 'locked-notice';
+      notice.textContent = `🔒 Unlocks on October ${day}th!`;
+      document.querySelector('.character-right').appendChild(notice);
+    }
+
     async function checkWinner(){
       try {
         const res = await fetch(`${WEBHOOK}?day=${day}`);
@@ -156,6 +197,7 @@
       }
     }
 
+    // 🎟 Raffle modal logic
     enterBtn.addEventListener('click', ()=>{
       modal.classList.remove('hidden');
       entryResult.textContent = '';
@@ -199,6 +241,7 @@
     await checkWinner();
   }
 
+  // ✨ Page init
   document.addEventListener('DOMContentLoaded', ()=>{
     if(document.getElementById('calendar')) initIndex();
     if(document.querySelector('.character-page')) initCharacterPage();
