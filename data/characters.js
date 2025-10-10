@@ -13,7 +13,7 @@ window.FAENOIR_CHARACTERS = [
     traits: ["Ears: Mammal [Common]", "Halo: Shaped [Uncommon]", "Horns: Small [Common]"], ["Essence: Man Made (Dice) [Rare]", ["Tail: Axolotl (Other) [Rare]",
     image: "images/day14.png",
     silhouette: "silhouettes/day14.png",
-    raffleWebhook: "https://script.google.com/macros/s/AKfycbzK00IQ8SHrOv6JOeqC7MKHXAK2mNgvzRAUnpKpFKvEmJ5Bkv2hqMXj3jtDEPiycbsc/exec" // <-- set your Google Apps Script webhook URL here
+    raffleWebhook: "" // <-- set your Google Apps Script webhook URL here
   },
   {
     day: 15,
@@ -25,7 +25,7 @@ window.FAENOIR_CHARACTERS = [
     traits: ["Horns: Any horn[common]", "Halo: Circular[common]"], "Tail: Cow [common]"], "Essence: Ghost [rare]"], "Ears: Lamb [common]"],
     image: "images/day15.png",
     silhouette: "silhouettes/day15.png",
-    raffleWebhook: "https://script.google.com/macros/s/AKfycbzK00IQ8SHrOv6JOeqC7MKHXAK2mNgvzRAUnpKpFKvEmJ5Bkv2hqMXj3jtDEPiycbsc/exec"
+    raffleWebhook: ""
   },
   // ... add objects for day:16 through day:31
 ];
