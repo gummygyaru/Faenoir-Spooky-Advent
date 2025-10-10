@@ -1,4 +1,4 @@
-:root {
+:root{
   --bg:#fffafc;
   --panel:#fff0f7;
   --accent-1:#ffb49a; /* pastel orange */
@@ -12,190 +12,47 @@
 
 /* Basic reset */
 *{box-sizing:border-box}
-html,body{
-  height:100%;
-  margin:0;
-  color:var(--text);
-  -webkit-font-smoothing:antialiased;
-  background: 
-    linear-gradient(rgba(255, 250, 252, 0.88), rgba(255, 243, 248, 0.9)), 
-    url("https://t4.ftcdn.net/jpg/04/57/55/69/360_F_457556959_qLX8lsbnndDfTUvbFi6djHVHRejVGJTm.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-}
+html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#fff3f8 60%);color:var(--text);-webkit-font-smoothing:antialiased}
 a{color:inherit}
 
 /* header */
-.site-header{
-  padding:28px 18px;
-  text-align:center;
-  position:relative;
-}
-.site-header h1{
-  font-family:'Fredoka One', 'Poppins', sans-serif;
-  margin:0;
-  font-size:36px;
-  color:var(--accent-2);
-  text-shadow:0 2px 0 rgba(255,180,150,0.25);
-}
-.countdown{
-  margin-top:8px;
-  font-weight:600;
-  padding:6px 12px;
-  border-radius:999px;
-  background:linear-gradient(90deg,var(--accent-1),var(--accent-2));
-  display:inline-block;
-  color:white;
-  box-shadow:var(--card-shadow);
-  animation:float 3s ease-in-out infinite;
-}
+.site-header{padding:28px 18px;text-align:center}
+.site-header h1{font-family:'Fredoka One', 'Poppins', sans-serif;margin:0;font-size:36px;color:var(--accent-2);text-shadow:0 2px 0 rgba(255,180,150,0.2)}
+.countdown{margin-top:8px;font-weight:600;padding:6px 12px;border-radius:999px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));display:inline-block;color:white;box-shadow:var(--card-shadow);animation:float 3s ease-in-out infinite}
 
 /* page layout */
-.container{
-  max-width:1100px;
-  margin:18px auto;
-  padding:10px;
-}
-.calendar{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:16px;
-  padding:18px;
-  border:4px solid rgba(191,160,255,0.18);
-  border-radius:18px;
-  background:linear-gradient(180deg, rgba(255,244,247,0.85), rgba(245,241,255,0.8));
-  backdrop-filter: blur(4px);
-}
+.container{max-width:1100px;margin:18px auto;padding:10px}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:16px;padding:18px;border:4px solid rgba(191,160,255,0.18);border-radius:18px;background:linear-gradient(180deg, rgba(255,244,247,0.8), rgba(245,241,255,0.7))}
 
 /* card */
-.card{
-  background:var(--panel);
-  border-radius:12px;
-  padding:8px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  min-height:120px;
-  position:relative;
-  overflow:hidden;
-  cursor:pointer;
-  box-shadow:var(--card-shadow);
-  transition:transform .18s ease, box-shadow .18s;
-}
+.card{background:var(--panel);border-radius:12px;padding:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:120px;position:relative;overflow:hidden;cursor:pointer;box-shadow:var(--card-shadow);transition:transform .18s ease, box-shadow .18s}
 .card.locked{filter:grayscale(.12) brightness(.96)}
-.card img{
-  max-width:100%;
-  max-height:120px;
-  object-fit:cover;
-  border-radius:8px;
-  transition:transform .5s;
-}
+.card img{max-width:100%;max-height:120px;object-fit:cover;border-radius:8px;transition:transform .5s}
 .card:hover{transform:translateY(-8px)}
-.card .daylabel{
-  position:absolute;
-  top:8px;
-  left:8px;
-  background:rgba(255,255,255,0.7);
-  padding:4px 8px;
-  border-radius:8px;
-  font-size:13px;
-}
+.card .daylabel{position:absolute;top:8px;left:8px;background:rgba(255,255,255,0.7);padding:4px 8px;border-radius:8px;font-size:13px}
 
 /* current / today highlight */
-.card.today{
-  outline:3px dashed rgba(191,160,255,0.35);
-  transform:scale(1.03);
-}
+.card.today{outline:3px dashed rgba(191,160,255,0.35);transform:scale(1.03)}
 
 /* character page layout */
-.character-page{
-  display:grid;
-  grid-template-columns:1fr 360px;
-  gap:28px;
-  align-items:start;
-  padding:24px;
-}
-.character-left img{
-  width:100%;
-  max-height:600px;
-  object-fit:contain;
-  border-radius:14px;
-  box-shadow:var(--card-shadow);
-}
-.character-right .button{
-  display:inline-block;
-  margin:8px 6px;
-  padding:10px 14px;
-  border-radius:12px;
-  background:linear-gradient(90deg,var(--accent-2),var(--accent-1));
-  color:#fff;
-  border:none;
-  cursor:pointer;
-}
+.character-page{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start;padding:24px}
+.character-left img{width:100%;max-height:600px;object-fit:contain;border-radius:14px;box-shadow:var(--card-shadow)}
+.character-right .button{display:inline-block;margin:8px 6px;padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,var(--accent-2),var(--accent-1));color:#fff;border:none;cursor:pointer}
 .button.small{font-size:14px;padding:8px 10px}
 .button.big{font-size:16px;padding:12px 14px}
-.info-card{
-  margin-top:18px;
-  background:white;
-  padding:14px;
-  border-radius:12px;
-  box-shadow:var(--card-shadow);
-}
+.info-card{margin-top:18px;background:white;padding:14px;border-radius:12px;box-shadow:var(--card-shadow)}
 
 /* modal */
-.modal{
-  position:fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(20,18,30,0.45);
-}
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(20,18,30,0.45)}
 .modal.hidden{display:none}
-.modal-content{
-  background:linear-gradient(180deg,#fff,#fff7fe);
-  padding:18px;
-  border-radius:14px;
-  min-width:320px;
-  max-width:420px;
-  box-shadow:0 18px 60px rgba(37,20,60,0.28);
-  position:relative;
-}
-.modal-close{
-  position:absolute;
-  right:8px;
-  top:8px;
-  border:none;
-  background:transparent;
-  font-size:22px;
-  cursor:pointer;
-}
-.modal input{
-  width:100%;
-  padding:10px;
-  border-radius:10px;
-  border:1px solid #eee;
-  margin:8px 0;
-  font-size:15px;
-}
+.modal-content{background:linear-gradient(180deg,#fff,#fff7fe);padding:18px;border-radius:14px;min-width:320px;max-width:420px;box-shadow:0 18px 60px rgba(37,20,60,0.28);position:relative}
+.modal-close{position:absolute;right:8px;top:8px;border:none;background:transparent;font-size:22px;cursor:pointer}
+.modal input{width:100%;padding:10px;border-radius:10px;border:1px solid #eee;margin:8px 0;font-size:15px}
 .entry-result{margin-top:8px;font-weight:600}
 
 /* footer */
-.site-footer{
-  margin-top:24px;
-  padding:14px;
-  text-align:center;
-}
-.footer-links a{
-  margin:0 10px;
-  padding:8px 12px;
-  border-radius:10px;
-  background:linear-gradient(90deg,#fff0f6,#f8f5ff);
-  text-decoration:none;
-  box-shadow:var(--card-shadow);
-}
+.site-footer{margin-top:24px;padding:14px;text-align:center}
+.footer-links a{margin:0 10px;padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,#fff0f6,#f8f5ff);text-decoration:none;box-shadow:var(--card-shadow)}
 
 /* responsive */
 @media (max-width:900px){
@@ -214,34 +71,21 @@ a{color:inherit}
   position:absolute;
   left:10%;
   top:8%;
-  width:18px;
-  height:18px;
+  width:18px;height:18px;
   background:radial-gradient(circle,#fff,#ffdce3 60%,transparent 70%);
-  filter:blur(.6px);
-  opacity:.9;
-  transform:rotate(20deg);
+  filter:blur(.6px);opacity:.9;transform:rotate(20deg);
   animation:spin 5s linear infinite;
 }
 @keyframes spin {0%{transform:rotate(0) translateY(0)}50%{transform:rotate(180deg) translateY(-6px)}100%{transform:rotate(360deg) translateY(0)}}
 
-/* sparkle & hover effects */
+/* card hover sparkle variations (visual fun) */
 .card::before{
   content:"";
-  position:absolute;
-  right:-30px;
-  top:-30px;
-  width:100px;
-  height:100px;
-  border-radius:50%;
+  position:absolute;right:-30px;top:-30px;width:100px;height:100px;border-radius:50%;
   background:radial-gradient(circle, rgba(191,160,255,0.28), transparent 40%);
-  transform:rotate(20deg);
-  transition:all .35s;
+  transform:rotate(20deg);transition:all .35s;
 }
-.card:hover::before{
-  right:-6px;
-  top:-6px;
-  transform:scale(1.05) rotate(5deg);
-}
+.card:hover::before{right:-6px;top:-6px;transform:scale(1.05) rotate(5deg)}
 
 .sparkle-container {
   position: absolute;
