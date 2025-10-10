@@ -7,8 +7,60 @@
   <link rel="stylesheet" href="style.css" />
   <script src="data/characters.js" defer></script>
   <script src="script.js" defer></script>
+
+  <style>
+    /* Pagedoll mascot */
+    #pagedoll {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 180px;      /* medium-large size */
+      max-width: 20vw;
+      z-index: 999;
+      cursor: pointer;
+      transition: transform 0.3s ease, bottom 0.3s ease;
+    }
+
+    #pagedoll img {
+      width: 100%;
+      display: block;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      animation: floatDoll 4s ease-in-out infinite;
+    }
+
+    @keyframes floatDoll {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* hover effect */
+    #pagedoll:hover {
+      transform: scale(1.05);
+      bottom: 25px;
+    }
+
+    /* optional floating mist behind everything */
+    .mist {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05), transparent 70%);
+      pointer-events: none;
+      animation: drift 12s infinite linear;
+      z-index: 0;
+    }
+    @keyframes drift {
+      0% { transform: translateX(0) translateY(0); }
+      50% { transform: translateX(20px) translateY(10px); }
+      100% { transform: translateX(0) translateY(0); }
+    }
+  </style>
 </head>
 <body>
+  <!-- Mist background -->
+  <div class="mist"></div>
+
   <header class="site-header">
     <h1>Faenoir Spooky Advent</h1>
     <div class="countdown" id="countdown">00:00:00</div>
@@ -17,6 +69,11 @@
   <main class="container">
     <section class="calendar" id="calendar"></section>
   </main>
+
+  <!-- Pagedoll mascot -->
+  <div id="pagedoll">
+    <img src="images/mascot-halloween.png" alt="Mascot" />
+  </div>
 
   <footer class="site-footer">
     <div class="footer-links">
@@ -28,4 +85,3 @@
   </footer>
 </body>
 </html>
-
