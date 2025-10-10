@@ -3,10 +3,184 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Raffle</title>
+  <title>Faenoir Raffle</title>
+
   <link rel="stylesheet" href="style.css" />
   <script src="data/characters.js" defer></script>
   <script src="script.js" defer></script>
+
+  <style>
+    /* ✨ Aesthetic pastel adjustments */
+    body {
+      background: linear-gradient(180deg, #fff3f8 0%, #f6e1ff 100%);
+      font-family: "Poppins", sans-serif;
+      color: #4a304a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header.site-header {
+      text-align: center;
+      padding: 1.5rem;
+      background: #fff6fcaa;
+      border-bottom: 2px dashed #e6b6ff;
+    }
+
+    main.container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .character-left img {
+      max-width: 350px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      background: #fff;
+      padding: 0.5rem;
+      transition: transform 0.2s ease;
+    }
+
+    .character-left img:hover {
+      transform: scale(1.02);
+    }
+
+    aside.character-right {
+      background: #fff6ff;
+      padding: 1.5rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      min-width: 280px;
+      max-width: 320px;
+    }
+
+    .ml-row, .toyhouse-row, .enter-raffle {
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .button {
+      background: #e8b8ff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.6rem 1.2rem;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .button:hover {
+      background: #d79bff;
+    }
+
+    .button.big {
+      font-size: 1.1rem;
+    }
+
+    .info-card p {
+      margin: 0.5rem 0;
+    }
+
+    /* Modal styling */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .modal.hidden {
+      display: none;
+    }
+
+    .modal-content {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      animation: popIn 0.3s ease;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: #d79bff;
+      cursor: pointer;
+    }
+
+    #username-input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 2px solid #e6b6ff;
+      border-radius: 10px;
+      margin-top: 0.8rem;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    #entry-result {
+      margin-top: 0.8rem;
+      font-weight: bold;
+    }
+
+    #winner-display {
+      text-align: center;
+      margin-top: 1rem;
+      background: #fff;
+      border: 2px dashed #e8b8ff;
+      border-radius: 12px;
+      padding: 0.8rem;
+      font-weight: bold;
+      color: #b66dd4;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 8px rgba(230,182,255,0.6); }
+      50% { box-shadow: 0 0 14px rgba(230,182,255,1); }
+    }
+
+    footer.site-footer {
+      text-align: center;
+      background: #fff6fcaa;
+      border-top: 2px dashed #e6b6ff;
+      padding: 1rem;
+    }
+
+    .footer-links a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #b66dd4;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #ff9fff;
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -32,6 +206,9 @@
         <button id="enter-button" class="button big">Enter Raffle</button>
       </div>
 
+      <!-- ✨ NEW winner display -->
+      <div id="winner-display" class="hidden">🎉 Winner: —</div>
+
       <div class="info-card" id="info-card">
         <p><strong>Designer:</strong> <span id="designer"></span></p>
         <p><strong>Species:</strong> <span id="species"></span></p>
@@ -41,12 +218,12 @@
     </aside>
   </main>
 
-  <!-- raffle modal -->
+  <!-- Raffle entry modal -->
   <div id="raffle-modal" class="modal hidden" aria-hidden="true">
     <div class="modal-content">
       <button class="modal-close" id="modal-close">&times;</button>
       <h2>Enter Raffle</h2>
-      <p>Enter your Toyhouse username to join this day's raffle.</p>
+      <p>Enter your Toyhouse username to join today's raffle.</p>
       <input id="username-input" placeholder="Toyhouse username" />
       <div class="modal-actions">
         <button id="submit-entry" class="button big">Submit</button>
@@ -65,4 +242,3 @@
   </footer>
 </body>
 </html>
-
