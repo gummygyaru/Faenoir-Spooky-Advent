@@ -2,7 +2,11 @@
 // Depends on data/characters.js being loaded first.
 
 (function(){
-  const WEBHOOK = "https://script.google.com/macros/s/AKfycbzK00IQ8SHrOv6JOeqC7MKHXAK2mNgvzRAUnpKpFKvEmJ5Bkv2hqMXj3jtDEPiycbsc/exec";
+  // ✨ Link to your published Apps Script that reads winners from the Sheet
+  const SHEET_API = "https://script.google.com/macros/s/AKfycbzV0SUajBxUP0xzsqOMQmg0BDYKASqDNgdmPx1GLCV3FEYvnrC95p6tcqc2o4ff1xN3/exec";
+
+  // 🎀 Link to your Google Form for entries
+  const GOOGLE_FORM = "https://forms.gle/SsUmm7B1GuHGMLT87";
 
   function getPSTNow(){
     const str = new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
@@ -14,7 +18,7 @@
   const calendarEl = document.getElementById('calendar');
   const countdownEl = document.getElementById('countdown');
 
-  // 🌸 create sparkles for reveal animation
+  // 🌸 Sparkle effect
   function createSparkles(target){
     const sparkleContainer = document.createElement('div');
     sparkleContainer.className = 'sparkle-container';
@@ -29,7 +33,7 @@
     setTimeout(() => sparkleContainer.remove(), 1500);
   }
 
-  // 🎃 Build main calendar
+  // 🎃 Calendar builder
   function buildCalendar(){
     if(!calendarEl) return;
     calendarEl.innerHTML = '';
@@ -71,7 +75,6 @@
     refreshCards();
   }
 
-  // 🕓 Unlock logic
   function isUnlocked(day){
     const now = getPSTNow();
     const month = now.getMonth() + 1;
@@ -82,7 +85,6 @@
     return false;
   }
 
-  // 🌷 Reveal animation on unlock
   function revealCard(card, newSrc){
     const img = card.querySelector('img');
     img.classList.add('reveal-fade');
@@ -93,7 +95,6 @@
     }, 400);
   }
 
-  // 🌸 Refresh cards daily
   function refreshCards(){
     const cards = document.querySelectorAll('.card');
     cards.forEach(card=>{
@@ -114,7 +115,7 @@
     });
   }
 
-  // ⏳ Countdown — includes pre-event waiting
+  // 🕛 Countdown (handles pre-event wait)
   function updateCountdown(){
     if(!countdownEl) return;
     const now = getPSTNow();
@@ -134,17 +135,16 @@
       return;
     }
 
-    const nextPSTMidnight = new Date(now);
-    nextPSTMidnight.setDate(day + 1);
-    nextPSTMidnight.setHours(0, 0, 0, 0);
-    const diff = nextPSTMidnight - nowTS;
+    const nextMidnight = new Date(now);
+    nextMidnight.setDate(day + 1);
+    nextMidnight.setHours(0, 0, 0, 0);
+    const diff = nextMidnight - nowTS;
     const hrs = Math.floor(diff / (1000 * 60 * 60));
     const mins = Math.floor((diff / (1000 * 60)) % 60);
     const secs = Math.floor((diff / 1000) % 60);
     countdownEl.textContent = `⏰ Next unlock in ${String(hrs).padStart(2,'0')}:${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
   }
 
-  // 🪞 Init index page
   function initIndex(){
     buildCalendar();
     setInterval(()=>{
@@ -154,7 +154,7 @@
     updateCountdown();
   }
 
-  // 🦋 Character page logic
+  // 🦋 Character page
   async function initCharacterPage(){
     const params = new URLSearchParams(window.location.search);
     const day = parseInt(params.get('day'),10);
@@ -167,9 +167,7 @@
     const unlocked = isUnlocked(day);
 
     document.getElementById('char-title').textContent = `${data.title || 'Raffle'} — Day ${day}`;
-    const imgEl = document.getElementById('char-image');
-    imgEl.src = unlocked ? data.image : data.silhouette;
-
+    document.getElementById('char-image').src = unlocked ? data.image : data.silhouette;
     document.getElementById('ml-number').textContent = data.mlNumber || 'ML';
     document.getElementById('ml-link').href = data.toyhouse || '#';
     document.getElementById('toyhouse-link').href = data.toyhouse || '#';
@@ -185,11 +183,6 @@
     });
 
     const enterBtn = document.getElementById('enter-button');
-    const modal = document.getElementById('raffle-modal');
-    const closeBtn = document.getElementById('modal-close');
-    const submitBtn = document.getElementById('submit-entry');
-    const usernameInput = document.getElementById('username-input');
-    const entryResult = document.getElementById('entry-result');
     const winnerBox = document.getElementById('winner-display');
 
     if(!unlocked){
@@ -200,9 +193,10 @@
       document.querySelector('.character-right').appendChild(notice);
     }
 
+    // 🌟 Fetch winner from Sheet (via Apps Script)
     async function checkWinner(){
       try {
-        const res = await fetch(`${WEBHOOK}?day=${day}`);
+        const res = await fetch(`${SHEET_API}?day=${day}`);
         const json = await res.json();
         if(json && json.winner){
           winnerBox.textContent = `🎉 Winner: ${json.winner}`;
@@ -215,52 +209,8 @@
     }
 
     enterBtn.addEventListener('click', ()=>{
-      modal.classList.remove('hidden');
-      modal.classList.add('fade-in');
-      entryResult.textContent = '';
-      usernameInput.value = '';
-      usernameInput.focus();
-    });
-    closeBtn.addEventListener('click', ()=>{
-      modal.classList.add('hidden');
-      modal.classList.remove('fade-in');
-    });
-
-    
-
-    submitBtn.addEventListener('click', async ()=>{
-      const username = usernameInput.value.trim();
-      if(!username){
-        entryResult.textContent = 'Please enter your Toyhouse username.';
-        entryResult.style.color = 'crimson';
-        return;
-      }
-      if(!isUnlocked(day)){
-        entryResult.textContent = `🎃 This raffle isn’t open yet! Please come back on October ${day}th.`;
-        entryResult.style.color = 'orange';
-        return;
-      }
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Submitting...';
-      const payload = { day, username, timestamp: new Date().toISOString() };
-      try{
-        const res = await fetch(WEBHOOK, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        if(!res.ok) throw new Error(`HTTP ${res.status}`);
-        entryResult.textContent = '🎉 You are entered! Good luck!';
-        entryResult.style.color = 'green';
-        submitBtn.textContent = 'Submitted';
-      }catch(err){
-        console.error(err);
-        entryResult.textContent = 'Error submitting. Try again later.';
-        entryResult.style.color = 'crimson';
-        submitBtn.textContent = 'Submit';
-      } finally {
-        submitBtn.disabled = false;
-      }
+      // instead of the modal, go straight to Google Form
+      window.open(GOOGLE_FORM, '_blank');
     });
 
     await checkWinner();
