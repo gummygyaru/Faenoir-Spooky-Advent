@@ -6,8 +6,8 @@ window.FAENOIR_CHARACTERS = [
   {
     day: 14,
     title: "One doll of a time",
-    mlNumber: "ML-014",
-    toyhouse: "https://toyhou.se/35603670.1",
+    mlNumber: "DEL-006",
+    toyhouse: "https://toyhou.se/35603670.advent-raffle-14",
     designer: "Shimura",
     species: "Delerian",
     traits: ["Ears: Mammal - Common", "Halo: Shaped - Uncommon", "Horns: Small - Common", "Essence: Man Made (Dice) - Rare", "Tail: Axolotl (Other) - Rare"],
