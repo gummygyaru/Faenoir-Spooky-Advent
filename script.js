@@ -220,4 +220,30 @@
     if(document.getElementById('calendar')) initIndex();
     if(document.querySelector('.character-page')) initCharacterPage();
   });
+
+  // 🕸️ Background music control
+document.addEventListener('DOMContentLoaded', () => {
+  const audio = document.getElementById('bg-music');
+  const toggle = document.getElementById('music-toggle');
+  if (!audio || !toggle) return;
+
+  // Restore last mute state
+  const muted = localStorage.getItem('musicMuted') === 'true';
+  audio.volume = 0.5;
+  audio.muted = muted;
+  toggle.textContent = muted ? '🔇' : '🔊';
+
+  // Try auto-play once user interacts
+  const tryPlay = () => {
+    audio.play().catch(() => {});
+    document.removeEventListener('click', tryPlay);
+  };
+  document.addEventListener('click', tryPlay);
+
+  toggle.addEventListener('click', () => {
+    audio.muted = !audio.muted;
+    localStorage.setItem('musicMuted', audio.muted);
+    toggle.textContent = audio.muted ? '🔇' : '🔊';
+  });
+});
 })();
