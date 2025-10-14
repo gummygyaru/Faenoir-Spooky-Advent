@@ -14,8 +14,10 @@ html, body {
   cursor: url('images/cursor.png'), auto;
 }
 
-a:hover, button:hover {
-  cursor: url(images/cursor_hover.png'), pointer;
+/* hover cursor — NOTE the proper quoting and fallback */
+a:hover,
+button:hover {
+  cursor: url('images/cursor_hover.png'), pointer;
 }
 
 .music-btn {
