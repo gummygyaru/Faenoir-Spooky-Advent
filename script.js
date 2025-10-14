@@ -2,9 +2,10 @@
 // Depends on data/characters.js being loaded first.
 
 (function(){
-  // ✨ Google Apps Script endpoint that reads winners
+  // ✨ Link to your published Apps Script that reads winners from the Sheet
   const SHEET_API = "https://script.google.com/macros/s/AKfycbzV0SUajBxUP0xzsqOMQmg0BDYKASqDNgdmPx1GLCV3FEYvnrC95p6tcqc2o4ff1xN3/exec";
-  // 🎀 Google Form for raffle entries
+
+  // 🎀 Link to your Google Form for entries
   const GOOGLE_FORM = "https://forms.gle/SsUmm7B1GuHGMLT87";
 
   function getPSTNow(){
@@ -32,7 +33,7 @@
     setTimeout(() => sparkleContainer.remove(), 1500);
   }
 
-  // 🎃 Build calendar
+  // 🎃 Calendar builder
   function buildCalendar(){
     if(!calendarEl) return;
     calendarEl.innerHTML = '';
@@ -65,10 +66,12 @@
         card.appendChild(tag);
       }
 
-      card.addEventListener('click', ()=> window.location.href = `character.html?day=${d}`);
+      card.addEventListener('click', ()=>{
+        window.location.href = `character.html?day=${d}`;
+      });
+
       calendarEl.appendChild(card);
     }
-
     refreshCards();
   }
 
@@ -77,8 +80,8 @@
     const month = now.getMonth() + 1;
     const pstDay = now.getDate();
     if (month < 10 || (month === 10 && pstDay < START_DAY)) return false;
-    if (month === 10 && pstDay >= day) return true;
-    if (month > 10) return true;
+    if(month === 10 && pstDay >= day) return true;
+    if(month > 10) return true;
     return false;
   }
 
@@ -86,7 +89,10 @@
     const img = card.querySelector('img');
     img.classList.add('reveal-fade');
     createSparkles(card);
-    setTimeout(()=>{ img.src = newSrc; img.classList.remove('reveal-fade'); }, 400);
+    setTimeout(()=>{
+      img.src = newSrc;
+      img.classList.remove('reveal-fade');
+    }, 400);
   }
 
   function refreshCards(){
@@ -109,7 +115,7 @@
     });
   }
 
-  // 🕛 Countdown
+  // 🕛 Countdown (handles pre-event wait)
   function updateCountdown(){
     if(!countdownEl) return;
     const now = getPSTNow();
@@ -131,7 +137,7 @@
 
     const nextMidnight = new Date(now);
     nextMidnight.setDate(day + 1);
-    nextMidnight.setHours(0,0,0,0);
+    nextMidnight.setHours(0, 0, 0, 0);
     const diff = nextMidnight - nowTS;
     const hrs = Math.floor(diff / (1000 * 60 * 60));
     const mins = Math.floor((diff / (1000 * 60)) % 60);
@@ -141,7 +147,10 @@
 
   function initIndex(){
     buildCalendar();
-    setInterval(()=>{ updateCountdown(); refreshCards(); }, 1000);
+    setInterval(()=>{
+      updateCountdown();
+      refreshCards();
+    }, 1000);
     updateCountdown();
   }
 
@@ -184,6 +193,7 @@
       document.querySelector('.character-right').appendChild(notice);
     }
 
+    // 🌟 Fetch winner from Sheet (via Apps Script)
     async function checkWinner(){
       try {
         const res = await fetch(`${SHEET_API}?day=${day}`);
@@ -198,59 +208,42 @@
       }
     }
 
-    enterBtn.addEventListener('click', ()=> window.open(GOOGLE_FORM, '_blank'));
+    enterBtn.addEventListener('click', ()=>{
+      // instead of the modal, go straight to Google Form
+      window.open(GOOGLE_FORM, '_blank');
+    });
+
     await checkWinner();
   }
-
-  // 🕸️ Spooky background music
-  document.addEventListener('DOMContentLoaded', ()=>{
-    const audio = new Audio('images/spooky.mp3');
-    audio.loop = true;
-    audio.volume = 0; // start silent
-    let targetVol = 0.4;
-
-    const toggle = document.createElement('button');
-    toggle.id = 'music-toggle';
-    toggle.textContent = '🔊';
-    document.body.appendChild(toggle);
-
-    // style toggle
-    Object.assign(toggle.style, {
-      position: 'fixed', bottom: '12px', right: '12px',
-      zIndex: 9999, background: 'rgba(0,0,0,0.4)',
-      border: 'none', borderRadius: '10px', color: '#fff',
-      padding: '8px 12px', fontSize: '18px', cursor: 'pointer'
-    });
-
-    const muted = localStorage.getItem('musicMuted') === 'true';
-    audio.muted = muted;
-    toggle.textContent = muted ? '🔇' : '🔊';
-
-    // Try to play, handle blocked autoplay
-    function tryPlay(){
-      audio.play().then(()=>{
-        if(!audio.muted){
-          // fade in
-          const fade = setInterval(()=>{
-            if(audio.volume < targetVol){ audio.volume += 0.02; }
-            else clearInterval(fade);
-          }, 100);
-        }
-      }).catch(()=> console.log("Autoplay blocked; will start on click"));
-    }
-
-    tryPlay();
-    document.addEventListener('click', tryPlay, { once: true });
-
-    toggle.addEventListener('click', ()=>{
-      audio.muted = !audio.muted;
-      localStorage.setItem('musicMuted', audio.muted);
-      toggle.textContent = audio.muted ? '🔇' : '🔊';
-    });
-  });
 
   document.addEventListener('DOMContentLoaded', ()=>{
     if(document.getElementById('calendar')) initIndex();
     if(document.querySelector('.character-page')) initCharacterPage();
   });
+
+  // 🕸️ Background music control
+document.addEventListener('DOMContentLoaded', () => {
+  const audio = document.getElementById('bg-music');
+  const toggle = document.getElementById('music-toggle');
+  if (!audio || !toggle) return;
+
+  // Restore last mute state
+  const muted = localStorage.getItem('musicMuted') === 'true';
+  audio.volume = 0.5;
+  audio.muted = muted;
+  toggle.textContent = muted ? '🔇' : '🔊';
+
+  // Try auto-play once user interacts
+  const tryPlay = () => {
+    audio.play().catch(() => {});
+    document.removeEventListener('click', tryPlay);
+  };
+  document.addEventListener('click', tryPlay);
+
+  toggle.addEventListener('click', () => {
+    audio.muted = !audio.muted;
+    localStorage.setItem('musicMuted', audio.muted);
+    toggle.textContent = audio.muted ? '🔇' : '🔊';
+  });
+});
 })();
