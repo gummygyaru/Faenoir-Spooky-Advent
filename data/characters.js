@@ -1,7 +1,5 @@
 // data/characters.js
 // An array of objects — one per day from Oct 14 to Oct 31.
-// Edit fields: day, title, mlNumber, toyhouse, designer, species, traits (array),
-// image (path under /images), silhouette (path under /silhouettes), raffleWebhook (set to your deployed Apps Script URL)
 window.FAENOIR_CHARACTERS = [
   {
     day: 14,
@@ -19,7 +17,8 @@ window.FAENOIR_CHARACTERS = [
     ],
     image: "images/day14.png",
     silhouette: "silhouettes/day14.png",
-    raffleWebhook: "https://script.google.com/macros/s/AKfycbwR6iLtbrPPjfqPFO3MgqPH-IYSEjGQ189T5kQo6K5vQI-Tj7FvjAhvgjeby2NQNyzz/exec"
+    raffleWebhook: "https://script.google.com/macros/s/AKfycbwR6iLtbrPPjfqPFO3MgqPH-IYSEjGQ189T5kQo6K5vQI-Tj7FvjAhvgjeby2NQNyzz/exec",
+    winner: "_TheRatKing_" // ✅ manually set winner
   },
   {
     day: 15,
@@ -37,9 +36,10 @@ window.FAENOIR_CHARACTERS = [
     ],
     image: "images/day15.png",
     silhouette: "silhouettes/day15.png",
-    raffleWebhook: "https://script.google.com/macros/s/AKfycbwR6iLtbrPPjfqPFO3MgqPH-IYSEjGQ189T5kQo6K5vQI-Tj7FvjAhvgjeby2NQNyzz/exec"
+    raffleWebhook: "https://script.google.com/macros/s/AKfycbwR6iLtbrPPjfqPFO3MgqPH-IYSEjGQ189T5kQo6K5vQI-Tj7FvjAhvgjeby2NQNyzz/exec",
+    winner: "Hibycus" // ✅ manually set winner
   },
-  // ... add objects for day:16 through day:31 in the same format
+  // ... add objects for day 16–31 in the same format
 ];
 
 // Helper: map day => data
