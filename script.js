@@ -3,10 +3,10 @@
 
 (function(){
   // ✨ Link to your published Apps Script that reads winners from the Sheet
-const SHEET_API = "https://script.google.com/macros/s/AKfycbwVaM0qqblUxg3W-sSt85aKPGcS2jkFJpkl8USsAkvupaYB7OVtXamxQHlUqoTfQ3dO/exec";
+  const SHEET_API = "https://script.google.com/macros/s/AKfycbwR6iLtbrPPjfqPFO3MgqPH-IYSEjGQ189T5kQo6K5vQI-Tj7FvjAhvgjeby2NQNyzz/exec";
 
-// 🎀 Link to your Google Form for entries
-const GOOGLE_FORM = "https://forms.gle/SsUmm7B1GuHGMLT87";
+  // 🎀 Link to your Google Form for entries
+  const GOOGLE_FORM = "https://forms.gle/SsUmm7B1GuHGMLT87";
 
   function getPSTNow(){
     const str = new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
