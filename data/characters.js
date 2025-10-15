@@ -10,10 +10,16 @@ window.FAENOIR_CHARACTERS = [
     toyhouse: "https://toyhou.se/35603670.advent-raffle-14",
     designer: "Shimura",
     species: "Delerian",
-    traits: ["Ears: Mammal - Common", "Halo: Shaped - Uncommon", "Horns: Small - Common", "Essence: Man Made (Dice) - Rare", "Tail: Axolotl (Other) - Rare"],
+    traits: [
+      "Ears: Mammal - Common",
+      "Halo: Shaped - Uncommon",
+      "Horns: Small - Common",
+      "Essence: Man Made (Dice) - Rare",
+      "Tail: Axolotl (Other) - Rare"
+    ],
     image: "images/day14.png",
     silhouette: "silhouettes/day14.png",
-    raffleWebhook: "https://script.google.com/macros/s/AKfycbzK00IQ8SHrOv6JOeqC7MKHXAK2mNgvzRAUnpKpFKvEmJ5Bkv2hqMXj3jtDEPiycbsc/exec" // <-- set your Google Apps Script webhook URL here
+    raffleWebhook: "https://script.google.com/macros/s/AKfycbwVaM0qqblUxg3W-sSt85aKPGcS2jkFJpkl8USsAkvupaYB7OVtXamxQHlUqoTfQ3dO/exec" // updated to correct Apps Script
   },
   {
     day: 15,
@@ -22,15 +28,20 @@ window.FAENOIR_CHARACTERS = [
     toyhouse: "https://toyhou.se/YYYYY",
     designer: "Captin_Bean",
     species: "Delerian",
-    traits: ["Horns: Any horn - common", "Halo: Circular - common", "Tail: Cow - common", "Essence: Ghost - rare", "Ears: Lamb - common"],
+    traits: [
+      "Horns: Any horn - common",
+      "Halo: Circular - common",
+      "Tail: Cow - common",
+      "Essence: Ghost - rare",
+      "Ears: Lamb - common"
+    ],
     image: "images/day15.png",
     silhouette: "silhouettes/day15.png",
-    raffleWebhook: "https://script.google.com/macros/s/AKfycbzK00IQ8SHrOv6JOeqC7MKHXAK2mNgvzRAUnpKpFKvEmJ5Bkv2hqMXj3jtDEPiycbsc/exec"
+    raffleWebhook: "https://script.google.com/macros/s/AKfycbwVaM0qqblUxg3W-sSt85aKPGcS2jkFJpkl8USsAkvupaYB7OVtXamxQHlUqoTfQ3dO/exec" // updated too
   },
   // ... add objects for day:16 through day:31
 ];
 
 // Helper: map day => data
 window.FAENOIR_BY_DAY = {};
-window.FAENOIR_CHARACTERS.forEach(c => window.FAENOIR_BY_DAY[c.day] = c);
-
+window.FAENOIR_CHARACTERS.forEach(c => (window.FAENOIR_BY_DAY[c.day] = c));
