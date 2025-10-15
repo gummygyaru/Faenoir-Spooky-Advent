@@ -120,56 +120,6 @@
     }
     .info-card p, .info-card ul { margin: 0.5rem 0; }
 
-    /* Modal */
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-    }
-    .modal.hidden { display: none; }
-    .modal-content {
-      background: #2a1b3d;
-      border-radius: 20px;
-      padding: 2rem;
-      max-width: 500px;
-      width: 90%;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-      color: #fdf6ff;
-      animation: modalPop 0.4s ease forwards;
-    }
-    @keyframes modalPop {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    .modal-close {
-      position: absolute;
-      right: 15px;
-      top: 10px;
-      background: none;
-      border: none;
-      font-size: 2rem;
-      color: #ff6f61;
-      cursor: pointer;
-    }
-    #username-input {
-      width: 100%;
-      padding: 0.8rem;
-      border: 2px solid #9b59b6;
-      border-radius: 14px;
-      margin-top: 1rem;
-      text-align: center;
-      font-size: 1rem;
-      background: rgba(0,0,0,0.3);
-      color: #fdf6ff;
-    }
-    #entry-result { margin-top: 1rem; font-weight: bold; }
-
     #winner-display {
       text-align: center;
       margin-top: 1.5rem;
@@ -203,6 +153,24 @@
       color: #ff6f61;
     }
 
+    /* Music toggle button */
+    .music-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #2a1b3d;
+      color: #fff;
+      font-size: 1.5rem;
+      border-radius: 50%;
+      border: 2px solid #9b59b6;
+      padding: 0.6rem 0.8rem;
+      cursor: pointer;
+      box-shadow: 0 0 12px rgba(0,0,0,0.6);
+      transition: transform 0.2s ease;
+    }
+    .music-btn:hover {
+      transform: scale(1.1);
+    }
   </style>
 </head>
 <body>
@@ -227,12 +195,15 @@
         <a id="toyhouse-link" class="button small" href="#" target="_blank">Toyhouse</a>
       </div>
 
+      <!-- Google Form Raffle Entry -->
       <div class="enter-raffle">
         <button id="enter-button" class="button big">Enter Raffle</button>
       </div>
 
+      <!-- Winner display -->
       <div id="winner-display" class="hidden">🎃 Winner: —</div>
 
+      <!-- Info -->
       <div class="info-card" id="info-card">
         <p><strong>Designer:</strong> <span id="designer"></span></p>
         <p><strong>Species:</strong> <span id="species"></span></p>
@@ -242,24 +213,8 @@
     </aside>
   </main>
 
-  <div id="raffle-modal" class="modal hidden" aria-hidden="true">
-    <div class="modal-content">
-      <button class="modal-close" id="modal-close">&times;</button>
-      <h2>Enter Raffle</h2>
-      <p>Enter your Toyhouse username to join today's raffle.</p>
-      <input id="username-input" placeholder="Toyhouse username" />
-      <div class="modal-actions">
-        <button id="submit-entry" class="button big">Submit</button>
-      </div>
-      <div id="entry-result" class="entry-result"></div>
-    </div>
-  </div>
-
   <audio id="bg-music" src="images/spooky.mp3" loop></audio>
-
-<button id="music-toggle" class="music-btn" aria-label="Toggle Music">
-  🔊
-</button>
+  <button id="music-toggle" class="music-btn" aria-label="Toggle Music">🔊</button>
 
   <footer class="site-footer">
     <div class="footer-links">
