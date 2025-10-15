@@ -19,7 +19,7 @@ window.FAENOIR_CHARACTERS = [
     ],
     image: "images/day14.png",
     silhouette: "silhouettes/day14.png",
-    raffleWebhook: "https://script.google.com/macros/s/AKfycbwVaM0qqblUxg3W-sSt85aKPGcS2jkFJpkl8USsAkvupaYB7OVtXamxQHlUqoTfQ3dO/exec" // updated to correct Apps Script
+    raffleWebhook: "https://script.google.com/macros/s/AKfycbwR6iLtbrPPjfqPFO3MgqPH-IYSEjGQ189T5kQo6K5vQI-Tj7FvjAhvgjeby2NQNyzz/exec"
   },
   {
     day: 15,
@@ -29,17 +29,17 @@ window.FAENOIR_CHARACTERS = [
     designer: "Captin_Bean",
     species: "Delerian",
     traits: [
-      "Horns: Any horn - common",
-      "Halo: Circular - common",
-      "Tail: Cow - common",
-      "Essence: Ghost - rare",
-      "Ears: Lamb - common"
+      "Horns: Any horn - Common",
+      "Halo: Circular - Common",
+      "Tail: Cow - Common",
+      "Essence: Ghost - Rare",
+      "Ears: Lamb - Common"
     ],
     image: "images/day15.png",
     silhouette: "silhouettes/day15.png",
-    raffleWebhook: "https://script.google.com/macros/s/AKfycbwVaM0qqblUxg3W-sSt85aKPGcS2jkFJpkl8USsAkvupaYB7OVtXamxQHlUqoTfQ3dO/exec" // updated too
+    raffleWebhook: "https://script.google.com/macros/s/AKfycbwR6iLtbrPPjfqPFO3MgqPH-IYSEjGQ189T5kQo6K5vQI-Tj7FvjAhvgjeby2NQNyzz/exec"
   },
-  // ... add objects for day:16 through day:31
+  // ... add objects for day:16 through day:31 in the same format
 ];
 
 // Helper: map day => data
