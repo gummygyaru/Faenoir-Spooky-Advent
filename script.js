@@ -2,11 +2,31 @@
 // Depends on data/characters.js being loaded first.
 
 (function(){
-  // ✨ Link to your published Apps Script that reads winners from the Sheet
-  const SHEET_API = "https://script.google.com/macros/s/AKfycbwR6iLtbrPPjfqPFO3MgqPH-IYSEjGQ189T5kQo6K5vQI-Tj7FvjAhvgjeby2NQNyzz/exec";
-
   // 🎀 Link to your Google Form for entries
   const GOOGLE_FORM = "https://forms.gle/SsUmm7B1GuHGMLT87";
+
+  // ✨ MANUAL WINNER LIST ✨
+  // Add winners here manually:
+  const MANUAL_WINNERS = {
+    14: "_TheRatKing_",   // Example — Day 14 winner
+    15: "Hibycus",          // Leave blank until known
+    16: "",
+    17: "",
+    18: "",
+    19: "",
+    20: "",
+    21: "",
+    22: "",
+    23: "",
+    24: "",
+    25: "",
+    26: "",
+    27: "",
+    28: "",
+    29: "",
+    30: "",
+    31: ""
+  };
 
   function getPSTNow(){
     const str = new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
@@ -115,7 +135,7 @@
     });
   }
 
-  // 🕛 Countdown (handles pre-event wait)
+  // 🕛 Countdown
   function updateCountdown(){
     if(!countdownEl) return;
     const now = getPSTNow();
@@ -193,27 +213,17 @@
       document.querySelector('.character-right').appendChild(notice);
     }
 
-    // 🌟 Fetch winner from Sheet (via Apps Script)
-    async function checkWinner(){
-      try {
-        const res = await fetch(`${SHEET_API}?day=${day}`);
-        const json = await res.json();
-        if(json && json.winner){
-          winnerBox.textContent = `🎉 Winner: ${json.winner}`;
-          winnerBox.classList.remove('hidden');
-          enterBtn.classList.add('hidden');
-        }
-      } catch(e){
-        console.warn('No winner yet.');
-      }
+    // 🎉 Manual Winner Display
+    const winner = MANUAL_WINNERS[day];
+    if (winner && winner.trim() !== "") {
+      winnerBox.textContent = `🎉 Winner: ${winner}`;
+      winnerBox.classList.remove('hidden');
+      enterBtn.classList.add('hidden');
     }
 
     enterBtn.addEventListener('click', ()=>{
-      // instead of the modal, go straight to Google Form
       window.open(GOOGLE_FORM, '_blank');
     });
-
-    await checkWinner();
   }
 
   document.addEventListener('DOMContentLoaded', ()=>{
@@ -222,28 +232,26 @@
   });
 
   // 🕸️ Background music control
-document.addEventListener('DOMContentLoaded', () => {
-  const audio = document.getElementById('bg-music');
-  const toggle = document.getElementById('music-toggle');
-  if (!audio || !toggle) return;
+  document.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('bg-music');
+    const toggle = document.getElementById('music-toggle');
+    if (!audio || !toggle) return;
 
-  // Restore last mute state
-  const muted = localStorage.getItem('musicMuted') === 'true';
-  audio.volume = 0.5;
-  audio.muted = muted;
-  toggle.textContent = muted ? '🔇' : '🔊';
+    const muted = localStorage.getItem('musicMuted') === 'true';
+    audio.volume = 0.5;
+    audio.muted = muted;
+    toggle.textContent = muted ? '🔇' : '🔊';
 
-  // Try auto-play once user interacts
-  const tryPlay = () => {
-    audio.play().catch(() => {});
-    document.removeEventListener('click', tryPlay);
-  };
-  document.addEventListener('click', tryPlay);
+    const tryPlay = () => {
+      audio.play().catch(() => {});
+      document.removeEventListener('click', tryPlay);
+    };
+    document.addEventListener('click', tryPlay);
 
-  toggle.addEventListener('click', () => {
-    audio.muted = !audio.muted;
-    localStorage.setItem('musicMuted', audio.muted);
-    toggle.textContent = audio.muted ? '🔇' : '🔊';
+    toggle.addEventListener('click', () => {
+      audio.muted = !audio.muted;
+      localStorage.setItem('musicMuted', audio.muted);
+      toggle.textContent = audio.muted ? '🔇' : '🔊';
+    });
   });
-});
 })();
