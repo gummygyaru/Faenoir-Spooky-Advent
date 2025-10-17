@@ -52,7 +52,7 @@ window.FAENOIR_CHARACTERS = [
     image: "images/day16.png",
     silhouette: "silhouettes/day16.png",
     raffleWebhook: "https://script.google.com/macros/s/AKfycbwR6iLtbrPPjfqPFO3MgqPH-IYSEjGQ189T5kQo6K5vQI-Tj7FvjAhvgjeby2NQNyzz/exec",
-    winner: "ToBeAnnounced"
+    winner: "JaxMaw"
   },
   {
     day: 17,
