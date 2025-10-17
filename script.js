@@ -10,7 +10,7 @@
   const MANUAL_WINNERS = {
     14: "_TheRatKing_",   // Example — Day 14 winner
     15: "Hibycus",          // Leave blank until known
-    16: "",
+    16: "JaxMaw",
     17: "",
     18: "",
     19: "",
