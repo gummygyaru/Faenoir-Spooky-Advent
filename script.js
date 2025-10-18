@@ -11,7 +11,7 @@
     14: "_TheRatKing_",   // Example — Day 14 winner
     15: "Hibycus",          // Leave blank until known
     16: "JaxMaw",
-    17: "",
+    17: "Priffu",
     18: "",
     19: "",
     20: "",
