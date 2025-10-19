@@ -12,7 +12,7 @@
     15: "Hibycus",          // Leave blank until known
     16: "JaxMaw",
     17: "Priffu",
-    18: "",
+    18: "Invalid_Name",
     19: "",
     20: "",
     21: "",
