@@ -238,8 +238,8 @@ window.FAENOIR_CHARACTERS = [
     day: 29,
     title: "Phantom Parade",
     mlNumber: "ML-027",
-    toyhouse: "https://toyhou.se/YYYYY",
-    designer: "Captin_Bean",
+    toyhouse: "https://toyhou.se/35760230.delerian-raffle-3",
+    designer: "moryn",
     species: "Delerian",
     traits: [
       "Check their Masterlist!",
