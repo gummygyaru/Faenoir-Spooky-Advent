@@ -131,7 +131,7 @@ window.FAENOIR_CHARACTERS = [
   },
   {
     day: 22,
-    title: "Zombie Silly",
+    title: "⚠️",
     mlNumber: "ML-020",
     toyhouse: "https://toyhou.se/35646509.raffle",
     designer: "kaijukandy",
@@ -146,11 +146,11 @@ window.FAENOIR_CHARACTERS = [
   },
   {
     day: 23,
-    title: "Wicked Nurse",
+    title: "Silly",
     mlNumber: "ML-021",
-    toyhouse: "https://toyhou.se/YYYYY",
-    designer: "RatTheLoser",
-    species: "Bloomyte",
+    toyhouse: "https://toyhou.se/35760230.delerian-raffle-3",
+    designer: "moryn",
+    species: "Delerian",
     traits: [
       "Check their Masterlist!",
     ],
@@ -238,7 +238,7 @@ window.FAENOIR_CHARACTERS = [
     day: 29,
     title: "Phantom Parade",
     mlNumber: "ML-027",
-    toyhouse: "https://toyhou.se/35760230.delerian-raffle-3",
+    toyhouse: "",
     designer: "moryn",
     species: "Delerian",
     traits: [
