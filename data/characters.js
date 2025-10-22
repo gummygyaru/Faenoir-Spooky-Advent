@@ -132,10 +132,10 @@ window.FAENOIR_CHARACTERS = [
   {
     day: 22,
     title: "⚠️",
-    mlNumber: "ML-020",
+    mlNumber: "ML-029",
     toyhouse: "https://toyhou.se/35646509.raffle",
-    designer: "kaijukandy",
-    species: "Bloomyte",
+    designer: "moryn",
+    species: "delerian",
     traits: [
       "Check their Masterlist!",
     ],
@@ -149,8 +149,8 @@ window.FAENOIR_CHARACTERS = [
     title: "Silly",
     mlNumber: "ML-021",
     toyhouse: "https://toyhou.se/35760230.delerian-raffle-3",
-    designer: "moryn",
-    species: "Delerian",
+    designer: "kaijukandy",
+    species: "bloomyte",
     traits: [
       "Check their Masterlist!",
     ],
