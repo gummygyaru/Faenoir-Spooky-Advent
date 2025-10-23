@@ -239,8 +239,8 @@ window.FAENOIR_CHARACTERS = [
     title: "Phantom Parade",
     mlNumber: "ML-027",
     toyhouse: "",
-    designer: "moryn",
-    species: "Delerian",
+    designer: "RatTheLoser",
+    species: "bloomyte",
     traits: [
       "Check their Masterlist!",
     ],
