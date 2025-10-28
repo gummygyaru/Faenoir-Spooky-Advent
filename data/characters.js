@@ -224,7 +224,7 @@ window.FAENOIR_CHARACTERS = [
     title: "Graveyard Groove",
     mlNumber: "ML-026",
     toyhouse: "https://toyhou.se/YYYYY",
-    designer: "Shimura",
+    designer: "Paora",
     species: "Delerian",
     traits: [
       "Check their Masterlist!",
