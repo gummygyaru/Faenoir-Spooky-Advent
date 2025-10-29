@@ -22,7 +22,7 @@
     25: "iletaituneforet",
     26: "Parabatai",
     27: "C0RPSEP4RTY",
-    28: "",
+    28: "Iron-Valiant",
     29: "",
     30: "",
     31: ""
