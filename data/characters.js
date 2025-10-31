@@ -251,11 +251,11 @@ window.FAENOIR_CHARACTERS = [
   },
   {
     day: 30,
-    title: "Candlelight Curse",
+    title: "Custom",
     mlNumber: "ML-028",
     toyhouse: "https://toyhou.se/YYYYY",
     designer: "Shimura",
-    species: "Delerian",
+    species: "Custom",
     traits: [
       "Check their Masterlist!",
     ],
@@ -266,11 +266,11 @@ window.FAENOIR_CHARACTERS = [
   },
   {
     day: 31,
-    title: "Final Fright",
+    title: "Custom",
     mlNumber: "ML-029",
     toyhouse: "https://toyhou.se/YYYYY",
-    designer: "Captin_Bean",
-    species: "Delerian",
+    designer: "Shimura",
+    species: "Custom",
     traits: [
       "Check their Masterlist!",
     ],
