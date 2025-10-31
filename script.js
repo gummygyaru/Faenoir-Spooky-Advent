@@ -24,7 +24,7 @@
     27: "C0RPSEP4RTY",
     28: "Iron-Valiant",
     29: "Pupguts",
-    30: "",
+    30: "Biscuits-N-Nuggies",
     31: ""
   };
 
