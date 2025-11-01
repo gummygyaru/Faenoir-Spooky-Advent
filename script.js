@@ -25,7 +25,7 @@
     28: "Iron-Valiant",
     29: "Pupguts",
     30: "Biscuits-N-Nuggies",
-    31: ""
+    31: "HoweverWhenever"
   };
 
   function getPSTNow(){
